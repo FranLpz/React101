@@ -38,13 +38,15 @@ class CommentBox extends Component {
 
 	render() {
 		return (
-			<div className="commentBox">
-		    	<h1>Comments</h1>
-            <CommentList data={this.state.data}/>
-		       	<MuiThemeProvider>            
-		        	<CommentForm onCommentSubmit={this.handleCommentSubmit}/>
-		        </MuiThemeProvider>
-			</div>
+			<MuiThemeProvider> 
+				<div className="commentBox">
+					<h1>Comments</h1>
+					<CommentList data={this.state.data}/>
+							
+						<CommentForm onCommentSubmit={this.handleCommentSubmit}/>
+				</div>
+	        </MuiThemeProvider>
+			
 		);
 	}
 }
