@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Dialog from 'material-ui/Dialog';
+
+/*Buttons*/
+import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
+//import RaisedButton from 'material-ui/RaisedButton';
+
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
@@ -11,9 +16,45 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close';
 class Login extends Component {
   static muiName = 'FlatButton';
 
+  state = {
+    open: false,
+  };
+
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
+
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        disabled={true}
+        onTouchTap={this.handleClose}
+      />,
+    ];
+
     return (
-      <FlatButton {...this.props} label="Login" />
+      <div>
+        <FlatButton label="Login" {...this.props} onTouchTap={this.handleOpen} />
+        <Dialog
+          title="Dialog With Actions"
+          actions={actions}
+          modal={true}
+          open={this.state.open}
+        >
+          Only actions can close this dialog.
+        </Dialog>
+      </div>
     );
   }
 }
