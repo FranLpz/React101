@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
+import Rebase from 're-base';
 
 /*Buttons*/
 import IconButton from 'material-ui/IconButton';
@@ -12,6 +13,13 @@ import FlatButton from 'material-ui/FlatButton';
 import Toggle from 'material-ui/Toggle';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
+
+var base = Rebase.createClass({
+  apiKey: "AIzaSyCaX5zvPQDKUqzcg3ovw2xHoUcQdCHrJrY",
+  authDomain: "react101-7b68e.firebaseapp.com",
+  databaseURL: "https://react101-7b68e.firebaseio.com",
+  storageBucket: "react101-7b68e.appspot.com",
+});
 
 class Login extends Component {
   static muiName = 'FlatButton';
@@ -26,6 +34,14 @@ class Login extends Component {
 
   handleClose = () => {
     this.setState({open: false});
+  };
+
+  fblogin = () => {
+    var authHandler = function(error, user) {
+      if(error) console.log(error);
+      console.log(user);
+    }
+    base.authWithOAuthPopup('google', authHandler);
   };
 
   render() {
@@ -52,7 +68,11 @@ class Login extends Component {
           modal={true}
           open={this.state.open}
         >
-          Only actions can close this dialog.
+          <FlatButton
+            label="Login with FireBase"
+            primary={true}
+            onTouchTap={this.fblogin}
+          />
         </Dialog>
       </div>
     );
@@ -82,7 +102,7 @@ Logged.muiName = 'IconMenu';
  */
 class AppBarExampleComposition extends Component {
   state = {
-    logged: true,
+    logged: false,
   };
 
   handleChange = (event, logged) => {
